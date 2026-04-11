@@ -10,7 +10,8 @@ export default function Home() {
   const [familiaSeleccionada, setFamiliaSeleccionada] = useState("");
   const [timeLeft, setTimeLeft] = useState({ meses: 0, dias: 0, horas: 0, minutos: 0 });
 
-  const familias = ["Arambulo", "Ardissone", "Castillo", "Centurion", "Fiorio", "Hoberuk", "Rasmussen"];
+  // LISTA ACTUALIZADA CON LA FAMILIA DESCALZO
+  const familias = ["Arambulo", "Ardissone", "Castillo", "Centurion", "Descalzo", "Fiorio", "Hoberuk", "Rasmussen"];
 
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "configuracion", "capital"), (docSnap) => {
@@ -55,20 +56,14 @@ export default function Home() {
   return (
     <main className="relative min-h-screen flex flex-col items-center p-6 text-slate-900 font-sans overflow-x-hidden">
       
-      {/* CAPA DE FONDO: Foto de la Iglesia + Cuadrado Negro con Transparencia */}
       <div className="fixed inset-0 -z-10">
-        <img 
-          src="/iglesia.jpg" 
-          alt="Fondo Iglesia Tobatí" 
-          className="w-full h-full object-cover"
-        />
+        <img src="/iglesia.jpg" alt="Fondo" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/60"></div>
       </div>
 
       <div className="max-w-md w-full text-center space-y-8 pt-6 relative z-10">
-        
         <header className="space-y-2">
-          <h1 className="text-5xl font-black text-white uppercase tracking-tighter drop-shadow-lg">Tobatí MFS</h1>
+          <h1 className="text-5xl font-black text-white uppercase tracking-tighter drop-shadow-lg text-balance">Tobatí MFS</h1>
           <p className="text-sm font-bold text-red-400 uppercase tracking-widest italic drop-shadow">
             "Nada sin ti, nada sin nosotros"
           </p>
@@ -86,7 +81,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-white/95 p-6 rounded-3xl shadow-xl backdrop-blur-sm border-2 border-white/20">
+        <section className="bg-white/95 p-6 rounded-3xl shadow-xl backdrop-blur-sm">
           <p className="font-bold text-red-700 mb-2 uppercase text-xs">1. ¿Qué familia sos?</p>
           <select 
             className="w-full p-4 rounded-xl bg-slate-100 font-bold text-center outline-none cursor-pointer"
@@ -108,7 +103,7 @@ export default function Home() {
             <button 
               key={item.id}
               onClick={() => sumarAporte(item.id)}
-              className={`p-6 bg-white/95 backdrop-blur-sm border-2 rounded-3xl shadow-lg transition-all ${familiaSeleccionada ? 'border-red-200 active:scale-95' : 'opacity-50 grayscale cursor-not-allowed border-transparent'}`}
+              className={`p-6 bg-white/95 backdrop-blur-sm border-2 rounded-3xl shadow-lg transition-all ${familiaSeleccionada ? 'border-red-200 active:scale-95' : 'opacity-50 grayscale cursor-not-allowed'}`}
             >
               <span className="text-4xl mb-2 block">{item.emoji}</span>
               <span className="font-bold text-slate-700">{item.nombre}</span>
@@ -116,9 +111,8 @@ export default function Home() {
           ))}
         </section>
 
-        {/* TEXTO NUEVO EN EL TOTAL */}
-        <div className="p-8 bg-white/95 rounded-[2.5rem] text-red-700 shadow-xl backdrop-blur-sm border-2 border-white/20">
-          <p className="text-xs font-black uppercase mb-3 text-slate-500 tracking-wider leading-tight px-4">
+        <div className="p-8 bg-white/95 rounded-[2.5rem] text-red-700 shadow-xl backdrop-blur-sm">
+          <p className="text-xs font-black uppercase mb-3 text-slate-500 tracking-wider leading-tight px-4 text-balance">
             Capitales de gracia entregados por Tobatí
           </p>
           <p className="text-6xl font-black tracking-tighter">{totalGeneral}</p>
