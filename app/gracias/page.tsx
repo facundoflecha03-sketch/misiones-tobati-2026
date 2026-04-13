@@ -20,6 +20,7 @@ export default function Gracias() {
 
   return (
     <main className="relative min-h-screen flex flex-col items-center p-6 text-white text-center font-sans">
+      
       <div className="fixed inset-0 -z-10">
         <img src="/iglesia.jpg" className="w-full h-full object-cover" alt="fondo" />
         <div className="absolute inset-0 bg-black/70"></div>

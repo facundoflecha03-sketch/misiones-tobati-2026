@@ -10,8 +10,11 @@ export default function Home() {
   const [familiaSeleccionada, setFamiliaSeleccionada] = useState("");
   const [timeLeft, setTimeLeft] = useState({ meses: 0, dias: 0, horas: 0, minutos: 0 });
 
-  // LISTA ACTUALIZADA CON LA FAMILIA DESCALZO
-  const familias = ["Arambulo", "Ardissone", "Castillo", "Centurion", "Descalzo", "Fiorio", "Hoberuk", "Rasmussen"];
+  // LISTA ACTUALIZADA
+  const familias = [
+    "Arambulo", "Ardissone", "Castillo", "Centurion", 
+    "Descalzo", "Etcheverry", "Fiorio", "Hoberuk", "Rasmussen"
+  ];
 
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "configuracion", "capital"), (docSnap) => {
@@ -57,13 +60,13 @@ export default function Home() {
     <main className="relative min-h-screen flex flex-col items-center p-6 text-slate-900 font-sans overflow-x-hidden">
       
       <div className="fixed inset-0 -z-10">
-        <img src="/iglesia.jpg" alt="Fondo" className="w-full h-full object-cover" />
+        <img src="/iglesia.jpg" alt="Fondo Iglesia" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/60"></div>
       </div>
 
       <div className="max-w-md w-full text-center space-y-8 pt-6 relative z-10">
         <header className="space-y-2">
-          <h1 className="text-5xl font-black text-white uppercase tracking-tighter drop-shadow-lg text-balance">Tobatí MFS</h1>
+          <h1 className="text-5xl font-black text-white uppercase tracking-tighter drop-shadow-lg">Tobatí MFS</h1>
           <p className="text-sm font-bold text-red-400 uppercase tracking-widest italic drop-shadow">
             "Nada sin ti, nada sin nosotros"
           </p>
@@ -111,7 +114,7 @@ export default function Home() {
           ))}
         </section>
 
-        <div className="p-8 bg-white/95 rounded-[2.5rem] text-red-700 shadow-xl backdrop-blur-sm">
+        <div className="p-8 bg-white/95 rounded-[2.5rem] text-red-700 shadow-xl backdrop-blur-sm border-2 border-white/20">
           <p className="text-xs font-black uppercase mb-3 text-slate-500 tracking-wider leading-tight px-4 text-balance">
             Capitales de gracia entregados por Tobatí
           </p>
