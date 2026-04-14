@@ -7,11 +7,13 @@ import { collection, onSnapshot } from 'firebase/firestore';
 export default function Gracias() {
   const router = useRouter();
   const [ranking, setRanking] = useState<any[]>([]);
-  const [miFamilia, setMiFamilia] = useState("");
+  const [miComision, setMiComision] = useState("");
 
   useEffect(() => {
-    setMiFamilia(localStorage.getItem('miFamilia') || "");
-    const unsub = onSnapshot(collection(db, "familias"), (snapshot) => {
+    setMiComision(localStorage.getItem('miComision') || "");
+    
+    // CAMBIO A COLECCIÓN COMISIONES
+    const unsub = onSnapshot(collection(db, "comisiones"), (snapshot) => {
       const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setRanking(docs.sort((a: any, b: any) => (b.total || 0) - (a.total || 0)));
     });
@@ -30,12 +32,12 @@ export default function Gracias() {
         <h1 className="text-4xl font-black uppercase tracking-tighter drop-shadow-md text-balance">¡GRACIAS POR TU ENTREGA!</h1>
 
         <div className="bg-white/95 text-slate-900 rounded-[2.5rem] p-6 shadow-2xl backdrop-blur-md min-h-[300px] flex flex-col border-2 border-white/20">
-          <h2 className="text-xl font-bold text-red-700 mb-4 uppercase">🏆 Ranking en Vivo</h2>
+          <h2 className="text-xl font-bold text-red-700 mb-4 uppercase">🏆 Ranking de Comisiones</h2>
           <div className="space-y-2 text-left flex-1">
-            {ranking.map((fam, index) => (
-              <div key={fam.id} className={`flex justify-between items-center p-4 rounded-2xl ${fam.id === miFamilia ? 'bg-red-600 text-white shadow-lg' : 'bg-slate-50 border border-slate-100'}`}>
-                <span className="font-bold">{index + 1}° {fam.id}</span>
-                <span className="font-black text-xl">{fam.total || 0}</span>
+            {ranking.map((com, index) => (
+              <div key={com.id} className={`flex justify-between items-center p-4 rounded-2xl ${com.id === miComision ? 'bg-red-600 text-white shadow-lg' : 'bg-slate-50 border border-slate-100'}`}>
+                <span className="font-bold">{index + 1}° {com.id}</span>
+                <span className="font-black text-xl">{com.total || 0}</span>
               </div>
             ))}
           </div>

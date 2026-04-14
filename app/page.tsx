@@ -7,13 +7,19 @@ import { doc, onSnapshot, updateDoc, increment } from 'firebase/firestore';
 export default function Home() {
   const router = useRouter();
   const [totalGeneral, setTotalGeneral] = useState(0);
-  const [familiaSeleccionada, setFamiliaSeleccionada] = useState("");
+  const [comisionSeleccionada, setComisionSeleccionada] = useState("");
   const [timeLeft, setTimeLeft] = useState({ meses: 0, dias: 0, horas: 0, minutos: 0 });
 
-  // LISTA ACTUALIZADA
-  const familias = [
-    "Arambulo", "Ardissone", "Castillo", "Centurion", 
-    "Descalzo", "Etcheverry", "Fiorio", "Hoberuk", "Rasmussen"
+  // NUEVA LISTA DE COMISIONES
+  const comisiones = [
+    "Espiritualidad", 
+    "Encuentro con jovenes", 
+    "Taller de niños", 
+    "Ambientación", 
+    "Alegría", 
+    "Servicio y Logística", 
+    "CM", 
+    "Matine"
   ];
 
   useEffect(() => {
@@ -42,18 +48,18 @@ export default function Home() {
   }, []);
 
   const sumarAporte = (campoFirebase: string) => {
-    if (!familiaSeleccionada) {
-      alert("¡Elegí tu familia primero!");
+    if (!comisionSeleccionada) {
+      alert("¡Che! Primero seleccioná tu comisión");
       return;
     }
-    localStorage.setItem('miFamilia', familiaSeleccionada);
+    localStorage.setItem('miComision', comisionSeleccionada);
     router.push('/gracias');
 
     const globalRef = doc(db, "configuracion", "capital");
-    const familiaRef = doc(db, "familias", familiaSeleccionada);
+    const comisionRef = doc(db, "comisiones", comisionSeleccionada);
 
     updateDoc(globalRef, { total: increment(1), [campoFirebase]: increment(1) });
-    updateDoc(familiaRef, { total: increment(1) });
+    updateDoc(comisionRef, { total: increment(1) });
   };
 
   return (
@@ -85,14 +91,14 @@ export default function Home() {
         </section>
 
         <section className="bg-white/95 p-6 rounded-3xl shadow-xl backdrop-blur-sm">
-          <p className="font-bold text-red-700 mb-2 uppercase text-xs">1. ¿Qué familia sos?</p>
+          <p className="font-bold text-red-700 mb-2 uppercase text-xs">1. ¿Qué comisión sos?</p>
           <select 
             className="w-full p-4 rounded-xl bg-slate-100 font-bold text-center outline-none cursor-pointer"
-            value={familiaSeleccionada}
-            onChange={(e) => setFamiliaSeleccionada(e.target.value)}
+            value={comisionSeleccionada}
+            onChange={(e) => setComisionSeleccionada(e.target.value)}
           >
-            <option value="">-- Seleccionar --</option>
-            {familias.map(f => <option key={f} value={f}>{f}</option>)}
+            <option value="">-- Seleccionar Comisión --</option>
+            {comisiones.map(c => <option key={c} value={c}>{c}</option>)}
           </select>
         </section>
 
@@ -106,7 +112,7 @@ export default function Home() {
             <button 
               key={item.id}
               onClick={() => sumarAporte(item.id)}
-              className={`p-6 bg-white/95 backdrop-blur-sm border-2 rounded-3xl shadow-lg transition-all ${familiaSeleccionada ? 'border-red-200 active:scale-95' : 'opacity-50 grayscale cursor-not-allowed'}`}
+              className={`p-6 bg-white/95 backdrop-blur-sm border-2 rounded-3xl shadow-lg transition-all ${comisionSeleccionada ? 'border-red-200 active:scale-95' : 'opacity-50 grayscale cursor-not-allowed'}`}
             >
               <span className="text-4xl mb-2 block">{item.emoji}</span>
               <span className="font-bold text-slate-700">{item.nombre}</span>
@@ -116,7 +122,7 @@ export default function Home() {
 
         <div className="p-8 bg-white/95 rounded-[2.5rem] text-red-700 shadow-xl backdrop-blur-sm border-2 border-white/20">
           <p className="text-xs font-black uppercase mb-3 text-slate-500 tracking-wider leading-tight px-4 text-balance">
-            Capitales de gracia entregados por Tobatí
+            Capitales de gracia entregados por comisiones
           </p>
           <p className="text-6xl font-black tracking-tighter">{totalGeneral}</p>
         </div>
